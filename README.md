@@ -24,3 +24,6 @@ For our own files:
 * ```main.html```
 
 For the main page, header, and major components
+
+## Odd Things Found:
+* If you cannot upload a file because of extensions, modify the file extension to an allowed extension, and then once it has been uploaded, change it back.
