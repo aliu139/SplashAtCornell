@@ -7,17 +7,17 @@
 {% block stylesheets %}
 {{ block.super }}
 <link rel="shortcut icon" href="/media/images/favicon.ico" />
-<meta name="author" content="Tony Valderrama, Vincent Lee, and others" />
+<meta name="author" content="Splash! at Cornell" />
 
 {% endblock %}
 
 {% block javascript %}
 {{ block.super }}
 
-<span style="display:none;">JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ</span>
 {% endblock %}
 
 {% block body %}
+
 <div id="fb-root"></div>
 <script>
   (function(d, s, id) {
@@ -61,8 +61,11 @@
       <span class="title accentcolor" style="color:white !important;">{{ theme.full_group_name }}</span>
       <span class="normal" style="color:white !important;"><!--E-mail:--><!-- <a href="mailto:{{ settings.DEFAULT_EMAIL_ADDRESSES.default }}">-->{{ settings.DEFAULT_EMAIL_ADDRESSES.default }}<!--</a>--></span>
       <span class="normal"><a href="/faq.html"  style="color:white !important;">FAQ</a> | <a href="/contact.html" style="color:white !important;">contact us</a></span><span class = "normal">{% if theme.facebook_link %} <div class="fb-like" data-href="https://www.facebook.com/cornellsplash" data-width="43" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>{% endif %} <a href="https://twitter.com/SplashCornell" class="twitter-follow-button" data-show-count="false" data-show-screen-name="false">Follow @SplashCornell</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-      <div id = "phone info">Phone: 909-713-4830</div>
+
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+      <span id="phone_info">Phone: </span>
+      <span id="phone"> </span>
       </div>
 {% block login %}
 <div id="login_box">
@@ -152,7 +155,16 @@
       &copy; {{ theme.full_group_name }}, <!--{{ theme.mtime.year }}-->
     </div>
     <script>var year = new Date().getFullYear(); document.getElementById("footer").innerHTML += "" + year;</script>
-    
+
+<script   src="https://code.jquery.com/jquery-3.1.1.js"   integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="   crossorigin="anonymous"></script>
+<script>
+  $.get("https://cornell.learningu.org/media/resources/constants.txt", function(data) {
+      console.log(data);
+      var jsonData = JSON.parse(data);
+      $('#phone').text(jsonData.phone);
+  });
+</script>    
+
 <!-- Facebook Conversion Code for Key Page Views - Justin Cray 1 -->
 <script>(function() {
   var _fbq = window._fbq || (window._fbq = []);
