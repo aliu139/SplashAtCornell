@@ -8,90 +8,27 @@
 {{ block.super }}
 <link rel="shortcut icon" href="/media/images/favicon.ico" />
 <meta name="author" content="Tony Valderrama, Vincent Lee, and others" />
-<!--[if lte IE 6]>
-<style type="text/css">
-* {
-  margin: 0;
-  padding: 0;
-  border: 0;
-}
-#body {
-  position: absolute;
-  left: 0px;
-  top: 40px;
-}
-#ie6_warning {
-  color: tabcolor2;
-  font-size: 0.83em;
-}
-#ie6_warning p {
-  position: relative;
-  left: 10px;
-}
-#search_box {
-  top: -28px;
-  border: 0px;
-  border-bottom: 0;
-  margin: 0;
-}
-#submenu {
-  width: 600px;
 
-}
-#submenu li {
-  display: inline;
-}
-</style>
-<![endif]-->
-<!--[if gt IE 6]>
-<style type="text/css">
-#body {
-  position: absolute;
-  left: 136px;
-  top: 55px;
-}
-#tab_sidebar {
-  position: absolute;
-  left: 136px;
-  top: 55px;
-}
-#submenu li {
-  display: inline;
-}
-</style>
-<![endif]-->
 {% endblock %}
 
 {% block javascript %}
 {{ block.super }}
-<!--[if lt IE 9]>
-<script src="/media/scripts/IE9.js"></script>
-<![endif]-->
+
 <span style="display:none;">JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ</span>
 {% endblock %}
 
-<!--<style>
-	#body{margin:0px; top:0px; left:0px; width:100%;}
-	#search_box{display:none;}
-	#page{margin-top:0px; margin-bottom:0px; width:100%; background-color:beige !important;}
-	#tab_sidebar{display:none;}
-	#body{margin-left:0px; width:100%; background-color:beige !important;}
-	#header{width:100%; background-color:#b31b1b !important;}
-	#content_header{background-color:white !important; border-radius:0px !important;}
-	#content_header h1{color:black !important; position:relative; top:10px;}
-	#cross_link{top:83px; left:50%; margin-left:-280px; z-index:99; width:560px;}
-	.leftedge{display:none;}
-</style>-->
-
 {% block body %}
 <div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
 <div id="adminbar" class="admin hidden">
   <div class="title" onclick="ESP.toggleDisplay('adminbar_content');">Admin Toolbar</div>
   <div id="adminbar_content"></div>
@@ -119,18 +56,9 @@
     <span class="leftedge{% if request.path|slice:':5' != category.header_link|slice:':5' %} inactive{% endif %}"><a href="{{ category.header_link }}"></a></span><span class="teach{% if request.path|slice:':5' != category.header_link|slice:':5' %} inactive{% endif %}"><a href="{{ category.header_link }}">{{ category.header }}</a></span>
     {% endfor %}
     </div>
-     <!-- <div id="search_box">
-      <span class="leftedge"></span>
-	<form name="search_form" method="get" action="http://www.google.com/search">
-	 <input type='hidden' name='sitesearch' value='{{ request.META.HTTP_HOST }}' />
-	  <input type="text" id="search_field" name="q" />
-	  <input type="hidden" id="search_submit" name="search_submit" value="" />
-      <input type="image" src="/media/images/theme/search-icon.png" />
-	</form>
-      </div>-->
+     
       <div id="contact_info" style="color:white !important;">
       <span class="title accentcolor" style="color:white !important;">{{ theme.full_group_name }}</span>
-     <!-- <span class="normal">{{ theme.contact_info|linebreaksbr }}</span>-->
       <span class="normal" style="color:white !important;"><!--E-mail:--><!-- <a href="mailto:{{ settings.DEFAULT_EMAIL_ADDRESSES.default }}">-->{{ settings.DEFAULT_EMAIL_ADDRESSES.default }}<!--</a>--></span>
       <span class="normal"><a href="/faq.html"  style="color:white !important;">FAQ</a> | <a href="/contact.html" style="color:white !important;">contact us</a></span><span class = "normal">{% if theme.facebook_link %} <div class="fb-like" data-href="https://www.facebook.com/cornellsplash" data-width="43" data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>{% endif %} <a href="https://twitter.com/SplashCornell" class="twitter-follow-button" data-show-count="false" data-show-screen-name="false">Follow @SplashCornell</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
@@ -212,11 +140,6 @@
       <div id="content">
 {% block content %}{% endblock %}
       </div>
-      <!--[if lte IE 6]>
-	  <div id="ie6_warning">
-<p>You're using a really old Web browser!  This site will look a lot better if you <a href="http://www.microsoft.com/windows/internet-explorer/">upgrade</a>.</p>
-	  </div>
-      <![endif]-->
       {% with request.path|split:"/"|index:1 as split_url %}
       {% if program and split_url|notequal:"manage" %}
       <div class="admin hidden" id="admin_link">
@@ -229,6 +152,7 @@
       &copy; {{ theme.full_group_name }}, <!--{{ theme.mtime.year }}-->
     </div>
     <script>var year = new Date().getFullYear(); document.getElementById("footer").innerHTML += "" + year;</script>
+    
 <!-- Facebook Conversion Code for Key Page Views - Justin Cray 1 -->
 <script>(function() {
   var _fbq = window._fbq || (window._fbq = []);
