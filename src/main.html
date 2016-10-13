@@ -4,9 +4,6 @@
 
 {% load main %} {# helpful functions #}
 
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
 {% block stylesheets %}
 {{ block.super }}
 <link rel="shortcut icon" href="/media/images/favicon.ico" />
@@ -22,6 +19,8 @@
 {% block body %}
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="/media/styles/buttons.css">
 
 <div id="fb-root"></div>
 <script>
@@ -71,24 +70,24 @@
         <div id="phone_info" style="float:left;">Phone:  </div>
         <div id="phone" style="float:left;"> </div>
       </span>
-      <a href="/contact.html">
+      <a href="/contact.html" style="text-decoration : none">
         <button class="btn btn-info" style="width:30px;height:30px; background: #D45437">
           <i class="fa fa-comment" aria-hidden="true"></i>
         </button>
       </a>
-      <a href="/faq.html">
+      <a href="/faq.html" style="text-decoration : none">
         <button class="btn btn-info" style="width:30px;height:30px; background: #FF9D00">
           <i class="fa fa-question" aria-hidden="true"></i>
         </button>
       </a>
       {% if theme.facebook_link %}
-      <a href="https://www.facebook.com/cornellsplash" data-layout="button" data-action="like" data-show-faces="false" data-share="false">
+      <a href="https://www.facebook.com/cornellsplash" data-layout="button" data-action="like" data-show-faces="false" data-share="false" style="text-decoration : none">
         <button class="btn btn-info" style="width:30px;height:30px;background:#3b5998">
           <i class="fa fa-facebook" aria-hidden="true"></i>
         </button>
       </a>
       {% endif %} 
-      <a href="https://twitter.com/SplashCornell" data-show-count="false" data-show-screen-name="false">
+      <a href="https://twitter.com/SplashCornell" data-show-count="false" data-show-screen-name="false" style="text-decoration : none">
         <button class="btn btn-info" style="width:30px;height:30px">
           <i class="fa fa-twitter" aria-hidden="true"></i>
         </button>
@@ -101,29 +100,39 @@
 <div class="not_logged_in">
 <form name="login_form" id="login_form" method="post" action="/myesp/login/">
   <input type="hidden" name="next" class="form-control" value="{{ request.path }}" />
-  <input type="text" id="login_user" name="username" class="form-control" placeholder="username" />
-  <input type="password" id="login_pswd" name="password" class="form-control" placeholder="password" />
-  <span id="login_arrow1"></span>
-  <input type="submit" id="login_submit" name="login_submit" value="Log in"/>
-  <span id="login_arrow2"></span>
-  <a href="/myesp/register" id="login_signup">Sign up</a>
-  <a href="/myesp/loginhelp.html" id="login_help" style="color:white !important;">
-    <button type="button" class="btn btn-default">
-      need help?
-    </button>
-  </a>
+  <div class="input-group">
+    <input type="text" id="login_user" name="username" class="form-control" placeholder="username" style="height: 30px"/>
+      <span class="input-group-btn">
+        <button type="submit" name="login_submit" value="Log in" class="btn btn-special btn-success" style="margin-left: 150px; margin-top: -10px;">
+          Log In
+        </button>
+        <button href="/myesp/register" class="btn btn-special btn-info" style="margin-top: -10px;">
+          Sign Up
+        </button>  
+      </span>
+  </div>
+  
+  <div class="input-group">
+      <input type="password" id="login_pswd" name="password" class="form-control" placeholder="password" style="height: 30px;"/>
+      <span class="input-group-btn">
+        <button href="/myesp/loginhelp.html" id="login_help" type="button" class="btn btn-special btn-default">
+          need help?
+        </button>
+      </span>
+    </div>
+
 </form>
 </div>
 <div class="logged_in hidden well" style="background:white">
   <div id="loginbox_user_name"></div>
 
-  <a href="/myesp/accountmanage.html">
+  <a href="/myesp/accountmanage.html" style="text-decoration : none">
     <button type="button" class="btn btn-default">
       My Profile
     </button>
   </a>
 
-  <a href="/myesp/signout/">
+  <a href="/myesp/signout/" style="text-decoration : none">
     <button type="button" class="btn btn-danger">
       Logout
     </button>

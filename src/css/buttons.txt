@@ -1,0 +1,6 @@
+.btn-special {
+    font-size: xx-small;
+    float:left;
+    padding: 5px;
+    margin-top:10px;
+}
