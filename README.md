@@ -25,5 +25,9 @@ For our own files:
 
 For the main page, header, and major components
 
+* '''Templates'''
+
+Any code that is found in editable boxes through the front of the webpage if admin.
+
 ## Odd Things Found:
 * If you cannot upload a file because of extensions, modify the file extension to an allowed extension, and then once it has been uploaded, change it back.
