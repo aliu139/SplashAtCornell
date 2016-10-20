@@ -1,6 +1,6 @@
 # Volunteer
 
-Thank you for your interest in volunteering for Splash! at Cornell. We will be holding our next event on November 5th, 2016.
+Thank you for your interest in volunteering for Splash! at Cornell. We will be holding our next event on <p id="dateOf"> </p>
 
 As a volunteer, you will have the opportunity to:
 <ul>
@@ -10,6 +10,14 @@ As a volunteer, you will have the opportunity to:
 <li>Have fun, and more!</li>
 </ul>
 
-Currently, registration to become a volunteer is closed. However, we encourage you to join our volunteer list serv by emailing us at splashcornell@gmail.com. We hope to see you in November!
+Currently, registration to become a volunteer is closed. However, we encourage you to join our volunteer list serv by emailing us at <a href="mailto:splashcornell@gmail.com"> splashcornell@gmail.com. </a> We hope to see you soon!
 
-<img src="https://scontent-yyz1-1.xx.fbcdn.net/hphotos-xat1/v/t1.0-9/11150368_1596404847273300_8380531715460811434_n.jpg?oh=c49bfab424216f638d7ed4fc7053fc3c&oe=576162ED"> </img>
+<img src="https://cornell.learningu.org/media/images/volunteer.jpg"> </img>
+<script   src="https://code.jquery.com/jquery-3.1.1.js"   integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="   crossorigin="anonymous"></script>
+<script>
+  $.get("https://cornell.learningu.org/media/resources/constants.txt", function(data) {
+      console.log(data);
+      var jsonData = JSON.parse(data);
+      $('#dateOf').text(jsonData.dateOf);
+  });
+</script>    

@@ -1,0 +1,255 @@
+{% extends "main.html" %}
+
+{% block title %}{{program.niceName}} Registration{% endblock %}
+
+{% block stylesheets %}
+{{ block.super }}
+<link rel="stylesheet" type="text/css" href="/media/styles/forms.css" />
+{% endblock %}
+
+{% block content %}
+<!--<style type="text/css">
+.nocheckmark { border: 1px solid black; }
+td>ul { list-style-type: none; padding: 0px }
+</style>
+<br /><br />
+<h1>Additional Purchases</h1>-->
+<h2>Please fill out this part of the survey with your guardian present. We ask that the student select their own courses.</h2>
+<!--<h1>Our Guardian Program</h1>-->
+
+
+
+{% load render_qsd %}
+
+{% inline_program_qsd_block program "learn:extracosts" %}
+<!--<h2>This program contains additional items that you can pay for online.</h2>
+<br />
+
+<p>To purchase any of the following items, please check its corresponding checkbox and click "Save".  They will be added to your bill if you pay by credit card.  Otherwise, you will be charged when you arrive for the program.</p>
+
+<p>Food and other additional items can only be changed up until <b>1 week before the program.</b></p>-->
+{% end_inline_program_qsd_block %}
+
+<!--<br />-->
+
+{% if errors %}<div class="formerror">There was a problem recording your choices.  Please review the form and make sure that it is filled out completely.</div>{% endif %}
+  
+<div id="program_form" style="display:none !important;">
+<form action="" method="post">
+<center>
+<table width="400" cellpadding="2" cellspacing="0">
+<tr><th colspan="{% if select_qty %}4{% else %}3{% endif %}">Additional Items for {{ program.niceName }}</th></tr>
+<tr>    
+    <th class="small">Buy</th>
+{% if select_qty %}    <th class="small">Qty</th>{% endif %}
+    <th class="small">Item</th>
+    <th class="small">Cost Each</th>
+</tr>
+{% for f in forms %}
+<tr style="border-bottom: 1px dashed grey;">
+    <td width="120px">
+        {% if f.form.option %}{{ f.form.option }}{% else %}{{ f.form.cost }}{% endif %}
+        {% if f.LineItem.negative_amount %}
+            <i>${{ f.LineItem.negative_amount|floatformat:2 }}</i>
+            {% endif %}
+
+        {# If num_options, radio buttons will be used for the field. In order to  #}
+        {# be able to remove a selected item, we need a button. The Javascript    #}
+        {# code for the button is at the bottom.                                  #}
+
+        {% if f.LineItem.num_options %}
+            <button type="button"
+                    class="remove-item"
+                    name="{{ f.form.prefix }}-option"
+                    onclick="remove_item(this);">
+                Remove this item
+            </button>
+        {% endif %}
+    </td>
+{% if select_qty %}    <td>{{ f.form.count }}</td>{% endif %}
+    <td>{% if f.form.errors %}<font color="red">{{ f.form.errors }}</font>  {% endif %}
+{% if not f.LineItem.negative_amount and f.LineItem.description %} {{ f.LineItem.description }}
+{% else %}<b>{{ f.LineItem.text }}</b>{% endif %}</td>
+    <td>{% if f.LineItem.num_options %}{% with f.LineItem.options_cost_range as cost_range %}
+    {% if cost_range.0 == cost_range.1 %}${{ cost_range.0|floatformat:2 }}{% else %}${{ cost_range.0|floatformat:2 }}--{{ cost_range.1|floatformat:2 }}{% endif %}
+    {% endwith %}{% else %}${{ f.LineItem.amount|floatformat:2 }}{% endif %}</td>
+</tr>
+{% endfor %}
+<tr>
+    <td colspan="{% if select_qty %}4{% else %}3{% endif %}" align="center">
+        <input type="submit" class="fancybutton" id="buttonToNextPage" value="Save"/>
+    </td>
+</tr>
+</table>
+</center>
+</form>
+</div>
+<!--<div>
+<p>
+We will be holding a guardian program at Splash! at Cornell. Parents, guardians, and teachers will be get the chance to experience some of our Splash! courses, learn more about applying to Cornell and the financial aid process, hear from current students and professors, and more. Please feel free to e-mail us at splashcornell@gmail.com to learn more. 
+</p>
+<div>-->
+<style type="text/css">
+ul {list-style-type:none;}
+</style>
+<script type="text/javascript">var submitted=false;</script>
+<!--<iframe name="hidden_iframe" id="hidden_iframe"
+style="display:none;" onload=""></iframe>-->
+<!--<div class="ss-required-asterisk" aria-hidden="true">* Required</div></div></div>
+<div class="ss-form"><form action="https://docs.google.com/a/cornell.edu/forms/d/1FSuYxPj5eLGnrIXt32nwlD3awPCbSIdzVGUxw1cBGMY/formResponse" method="POST" id="ss-form" target="hidden_iframe" onsubmit="submitted=true;"><ol role="list" class="ss-question-list" style="padding-left: 0">
+<div class="ss-form-question errorbox-good" role="listitem">
+<div dir="auto" class="ss-item ss-item-required ss-radio"><div class="ss-form-entry">
+<label class="ss-q-item-label" for="entry_226655756"><div class="ss-q-title">How many of your guardians are coming to Splash! at Cornell? *
+<label for="itemView.getDomIdToLabel()" aria-label="(Required field)"></label>
+<span class="ss-required-asterisk" aria-hidden="true"></span></div>
+<div class="ss-q-help ss-secondary-text" dir="auto"></div></label>
+
+<ul class="ss-choices" role="radiogroup" aria-label="How many of your guardians are coming to Splash! at Cornell?  "><li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.629983327" value="0" id="group_629983327_1" role="radio" class="ss-q-radio" aria-label="0" required="" aria-required="true"></span>
+<span class="ss-choice-label">0</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.629983327" value="1" id="group_629983327_2" role="radio" class="ss-q-radio" aria-label="1" required="" aria-required="true"></span>
+<span class="ss-choice-label">1</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="radio" name="entry.629983327" value="2" id="group_629983327_3" role="radio" class="ss-q-radio" aria-label="2" required="" aria-required="true"></span>
+<span class="ss-choice-label">2</span>
+</label></li></ul>
+<div class="error-message" id="226655756_errorMessage"></div>
+<div class="required-message"></div></div></div></div> <div class="ss-form-question errorbox-good" role="listitem">
+<div dir="auto" class="ss-item  ss-checkbox"><div class="ss-form-entry">
+<label class="ss-q-item-label" for="entry_1992993628"><div class="ss-q-title">If your parent(s) are coming, when will they be at the event?
+</div>
+<div class="ss-q-help ss-secondary-text" dir="auto">Registration opens at around 9AM and the event ends at 7PM</div></label>
+
+<ul class="ss-choices" role="group" aria-label="If your parent(s) are coming, when will they be at the event? Registration opens at around 9AM and the event ends at 7PM "><li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="checkbox" name="entry.106189416" value="9 AM to 10 AM" id="group_106189416_1" role="checkbox" class="ss-q-checkbox"></span>
+<span class="ss-choice-label">9 AM to 10 AM</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="checkbox" name="entry.106189416" value="10 AM to 11 AM" id="group_106189416_2" role="checkbox" class="ss-q-checkbox"></span>
+<span class="ss-choice-label">10 AM to 11 AM</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="checkbox" name="entry.106189416" value="11 AM to 12 PM" id="group_106189416_3" role="checkbox" class="ss-q-checkbox"></span>
+<span class="ss-choice-label">11 AM to 12 PM</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="checkbox" name="entry.106189416" value="12 PM to 1 PM" id="group_106189416_4" role="checkbox" class="ss-q-checkbox"></span>
+<span class="ss-choice-label">12 PM to 1 PM</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="checkbox" name="entry.106189416" value="1 PM to 2 PM" id="group_106189416_5" role="checkbox" class="ss-q-checkbox"></span>
+<span class="ss-choice-label">1 PM to 2 PM</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="checkbox" name="entry.106189416" value="2 PM to 3 PM" id="group_106189416_6" role="checkbox" class="ss-q-checkbox"></span>
+<span class="ss-choice-label">2 PM to 3 PM</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="checkbox" name="entry.106189416" value="3 PM to 4 PM" id="group_106189416_7" role="checkbox" class="ss-q-checkbox"></span>
+<span class="ss-choice-label">3 PM to 4 PM</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="checkbox" name="entry.106189416" value="4 PM to 5 PM" id="group_106189416_8" role="checkbox" class="ss-q-checkbox"></span>
+<span class="ss-choice-label">4 PM to 5 PM</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="checkbox" name="entry.106189416" value="5 PM to 6 PM" id="group_106189416_9" role="checkbox" class="ss-q-checkbox"></span>
+<span class="ss-choice-label">5 PM to 6 PM</span>
+</label></li> <li class="ss-choice-item"><label><span class="ss-choice-item-control goog-inline-block"><input type="checkbox" name="entry.106189416" value="6 PM to 7 PM" id="group_106189416_10" role="checkbox" class="ss-q-checkbox"></span>
+<span class="ss-choice-label">6 PM to 7 PM</span>
+</label></li></ul>
+<div class="error-message" id="1992993628_errorMessage"></div>
+<div class="required-message"></div></div></div></div> <div class="ss-form-question errorbox-good" role="listitem">
+<div dir="auto" class="ss-item  ss-text"><div class="ss-form-entry">
+<input type="text" name="entry.1167831891" value="" class="ss-q-short" id="entry_1167831891" dir="auto" aria-label="Name  " title="" style="display:none;">
+</div></div></div>
+<input type="hidden" name="draftResponse" value="[,,&quot;6747991569815775078&quot;]
+">
+<input type="hidden" name="pageHistory" value="0">
+
+<input type="hidden" name="fvv" value="0">
+
+
+<input type="hidden" name="fbzx" value="6747991569815775078">
+
+<div class="ss-item ss-navigate"><table id="navigation-table"><tbody><tr><td class="ss-form-entry goog-inline-block" id="navigation-buttons" dir="ltr">
+<input style="display:none !important;" type="submit" name="submit" value="Submit" id="ss-submit1" class="jfk-button jfk-button-action "></td>
+</tr></tbody></table></div></ol></form>
+</div>
+</div>-->
+
+<script type="text/javascript">
+    /*
+     * A click handler that unchecks all inputs with the same name as the
+     * button.
+     **/
+    function remove_item(button) {
+        $j("input[name="+button.name+"]").prop("checked", false);
+    }
+</script>
+<script>
+window.onload = function() {document.getElementById("entry_1167831891").value = document.getElementById("loginbox_user_name").firstChild.nodeValue.substring(7);}
+</script>
+
+<hr />
+<h1>Splash! at Cornell Liability Waiver</h1>
+<p> <b> Please note that misrepresenting yourself in a contract is fraud and make sure that your guardian has read and approved the following.</p> </b>
+I hereby give permission for my child to participate in the Splash! at Cornell sponsored program, to be held on Saturday, November 5th, 2016.  I have reviewed the program details and itinerary and allow my child's full participation in all program activities. <br>
+<ol><br>
+<li>	I agree, on behalf of myself, my child, my heirs, my assigns, executors, and representatives, to defend, indemnify and hold harmless Cornell University, and its trustees, officers, agents and employees; and Splash at Cornell, from any and all liability, damage, claim of any nature whatsoever arising out of or in any way related to my child’s participation in this program including any act or omission of any third party (Rescue Squad, Hospital, etc...), except in the event of gross negligence or that negligence which is due solely,  directly, and actively by Cornell University, its officers, or employees.  </li><br>
+
+<li>	I am not aware of any medical conditions which would interfere with my child’s participation in the activities of this program.  I understand that neither Cornell University nor Splash at Cornell provides any Accident or Medical Insurance for this program and that I am required to provide this for my child. I agree that I am financially responsible for all such expenses whatsoever and where ever incurred.</li><br>
+
+<li> 	I understand that all program participants are subject to Cornell University and Splash at Cornell policies and standards of conduct.  In the event of violation of any of these, or behavior which is considered by Cornell University or Slash at Cornell providing this program to be detrimental to the University, students, or other participants, Cornell University and/or Splash at Cornell will have the right to dismiss my child from the program.  </li><br>
+
+<li> 	Based on the description of activities provided online at <a href="cornell.learningu.org">cornell.learningu.org</a> and throughout registration, I have been informed about the dangers and risks inherent in my child’s participation in this program and agree to have (him/her) exercise caution when participating in the program.  I further agree to have him/her immediately cease any activity that is perceived to be unsafe and to have him/her inform program staff of any safety concern.   I also acknowledge that not every risk can be foreseen, and that this does not in any way limit the enforceability of this document. </li><br>
+
+<li>	I understand that program participants may be recorded on digital or film photography, videotape, audiotape, or any other medium.  I agree that the program sponsor may use such images or sounds of my child for any lawful purpose, including but not limited publicity, illustration, advertising, and Web content.  I waive any right to inspect or approve the copy and/or finished products that may be used in connection with this program.</li><br>
+
+<li>	I understand that if I desire my child to leave the program before it officially ends, I will have to arrange a meeting time and place with my child, and take full responsibility for meeting up with my child.</li><br>
+
+<li>	I will tell my child to check-in with the Splash! At Cornell helpdesk before he/she switches classes. I understand that if my child switches classes without notifying Splash! at Cornell administrators, Splash! at Cornell is not responsible for my child&rsquo;s whereabouts.</li><br>
+
+<li> 	This document shall be governed by and construed under the laws of the State of New York.   Any action or proceeding brought by any party to construe or enforce this document, or for damages for breach hereof, shall be brought in a court of competent jurisdiction located within the State of New York.</li><br>
+
+<li>  	I state that I am of lawful age and legally competent to sign this Agreement, that the terms herein are contractual, and that I have signed this document as my own free act.   I understand that as an adult, I am responsible for my child's conduct and safety. I have read and understand the terms of this Agreement and agree to all of its terms and conditions.</li><br>
+</ol>
+<script type="text/javascript">var submitted2=false;</script>
+<iframe name="hidden_iframe2" id="hidden_iframe2"
+style="display:none;" onload="if(submitted2)
+{document.getElementById('buttonToNextPage').click();}"></iframe>
+<div class="ss-required-asterisk" aria-hidden="true">* Required</div>
+<div class="ss-form"><!--<form action="https://docs.google.com/a/cornell.edu/forms/d/1kKg5iVp_FkUhCiv073EEIbFyCXgcTKc9nKF7hmyZ0m4/formResponse" method="POST" id="ss-form" target="hidden_iframe2" onsubmit="document.getElementById('ss-submit1').click(); if(submitted){submitted2=true;} else return false;">-->
+<form action="https://docs.google.com/forms/d/1kKg5iVp_FkUhCiv073EEIbFyCXgcTKc9nKF7hmyZ0m4/formResponse" method="POST" id="ss-form" target="hidden_iframe2" onsubmit="submitted2=true;">
+<ol role="list" class="ss-question-list" style="padding-left: 0">
+<div class="ss-form-question errorbox-good" role="listitem">
+<div dir="auto" class="ss-item ss-item-required ss-text"><div class="ss-form-entry">
+<label class="ss-q-item-label" for="entry_2120992483"><div class="ss-q-title">Son&#39;s/Daughter&#39;s Name: *
+<label for="itemView.getDomIdToLabel()" aria-label="(Required field)"></label>
+<span class="ss-required-asterisk" aria-hidden="true"></span></div>
+<div class="ss-q-help ss-secondary-text" dir="auto"></div></label>
+<input type="text" name="entry.2120992483" value="" class="ss-q-short" id="entry_2120992483" dir="auto" aria-label="Son&#39;s/Daughter&#39;s Name:  " aria-required="true" required="" title="">
+<div class="error-message" id="363957111_errorMessage"></div>
+<div class="required-message"></div>
+</div></div></div> <div class="ss-form-question errorbox-good" role="listitem">
+<div dir="auto" class="ss-item ss-item-required ss-text"><div class="ss-form-entry">
+<label class="ss-q-item-label" for="entry_122959679"><div class="ss-q-title">Mailing Address *	
+<label for="itemView.getDomIdToLabel()" aria-label="(Required field)"></label>
+<span class="ss-required-asterisk" aria-hidden="true"></span></div>
+<div class="ss-q-help ss-secondary-text" dir="auto"></div></label>
+<input type="text" name="entry.122959679" value="" class="ss-q-short" id="entry_122959679" dir="auto" aria-label="Mailing Address	  " aria-required="true" required="" title="">
+<div class="error-message" id="1947964499_errorMessage"></div>
+<div class="required-message"></div>
+</div></div></div> <div class="ss-form-question errorbox-good" role="listitem">
+<div dir="auto" class="ss-item ss-item-required ss-text"><div class="ss-form-entry">
+<label class="ss-q-item-label" for="entry_1345707135"><div class="ss-q-title">Phone Contact Number *
+<label for="itemView.getDomIdToLabel()" aria-label="(Required field)"></label>
+<span class="ss-required-asterisk" aria-hidden="true"></span></div>
+<div class="ss-q-help ss-secondary-text" dir="auto"></div></label>
+<input type="text" name="entry.1345707135" value="" class="ss-q-short" id="entry_1345707135" dir="auto" aria-label="Phone Contact Number  " aria-required="true" required="" title="">
+<div class="error-message" id="1088581051_errorMessage"></div>
+<div class="required-message"></div>
+</div></div></div> <div class="ss-form-question errorbox-good" role="listitem">
+<div dir="auto" class="ss-item ss-item-required ss-text"><div class="ss-form-entry">
+<label class="ss-q-item-label" for="entry_558705908"><div class="ss-q-title">By entering my name into this form as a parent or legal guardian, I give my legally binding electronic signature with respect to the above terms. *
+<label for="itemView.getDomIdToLabel()" aria-label="(Required field)"></label>
+<span class="ss-required-asterisk" aria-hidden="true"></span></div>
+<div class="ss-q-help ss-secondary-text" dir="auto"></div></label>
+<input type="text" name="entry.558705908" value="" class="ss-q-short" id="entry_558705908" dir="auto" aria-label="By entering my name into this form as a parent or legal guardian, I give my legally binding electronic signature with respect to the above terms.  " aria-required="true" required="" title="">
+<div class="error-message" id="2073321654_errorMessage"></div>
+<div class="required-message"></div>
+</div></div></div>
+<input type="hidden" name="draftResponse" value="[,,&quot;-4402048618468007785&quot;]
+">
+<input type="hidden" name="pageHistory" value="0">
+
+<input type="hidden" name="fvv" value="0">
+
+
+<input type="hidden" name="fbzx" value="-4402048618468007785">
+
+<div class="ss-item ss-navigate"><table id="navigation-table"><tbody><tr><td class="ss-form-entry goog-inline-block" id="navigation-buttons" dir="ltr">
+<input type="submit" name="submit" value="Submit" id="ss-submit" class="jfk-button jfk-button-action "></td>
+</tr></tbody></table></div></ol></form></div>
+{% endblock %}
