@@ -10,6 +10,11 @@ The HTML/CSS/JS snippets used on the Splash! at Cornell page!
 * Hit save
 * Make sure to hit ``` Ctrl + Shift + R ``` to reload the page properly!
 
+## How to Add a Page?
+* Type in the url you want
+* Error page will display with the option of creating the page
+* Follow instructions
+
 ## Helpful Links
 In the event that you have questions about the Django app used to run the site, please refer to 
 
@@ -25,7 +30,7 @@ For our own files:
 
 For the main page, header, and major components
 
-* '''Templates'''
+* ```Templates```
 
 Any code that is found in editable boxes through the front of the webpage if admin.
 
